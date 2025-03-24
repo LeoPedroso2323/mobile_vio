@@ -9,11 +9,13 @@ import {
   Button,
 } from "react-native";
 import api from "../axios/axios";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function Login({ navigation }) {
   const [user, setUser] = useState({
     email: "",
     password: "",
+    showPassword: false,
   });
 
   async function handleLogin() {
@@ -40,14 +42,20 @@ export default function Login({ navigation }) {
         }}
         style={styles.input}
       />
-      <TextInput
-        placeholder="Senha"
-        value={user.password}
-        onChangeText={(value) => {
-          setUser({ ...user, password: value });
-        }}
-        style={styles.input}
-      />
+      <View style={styles.passwordContainer}>
+        <TextInput
+          placeholder="Senha"
+          value={user.password}
+          secureTextEntry={user.showPassword}
+          onChangeText={(value) => {
+            setUser({ ...user, password: value });
+          }}
+          style={styles.input}
+        />
+        <TouchableOpacity onPress={()=> setUser({...user,showPassword: !user.showPassword})} >
+          <Ionicons name={user.showPassword?"eye":"eye-off"} size={24} color="gray"/>
+        </TouchableOpacity>
+      </View>
       <TouchableOpacity onPress={handleLogin} style={styles.button}>
         <Text style={styles.buttonText}>Entrar</Text>
       </TouchableOpacity>
@@ -86,12 +94,12 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     paddingLeft: 15,
     fontSize: 16,
-    backgroundColor: "#fff", 
+    backgroundColor: "#fff",
   },
   button: {
     width: "80%",
     height: 50,
-    backgroundColor: "#2E8B57", 
+    backgroundColor: "#2E8B57",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 20,
@@ -107,4 +115,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
+  passwordContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "100%",
+    paddingRight: 10,
+    borderBottomWidth: 1
+    
+  },
+  passwordInput:{
+    flex: 1,
+    height: 40,
+    
+  }
 });
