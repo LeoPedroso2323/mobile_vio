@@ -37,11 +37,12 @@ return (
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => setModalVisible(true)}>
             <View style={styles.eventCard}>
-              <Text style={styles.eventTitle}>{item.nome}</Text>
-              <Text style={styles.eventDate}>{item.data}</Text>
-              <Text style={styles.eventDescription}>{item.descricao}</Text>
+              <Text>{item.nome}</Text>
+              <Text>{item.local}</Text>
+              <Text>{new Date(item.data_hora).toLocaleDateString()}</Text>
+
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> 
         )}
       />
     )}
