@@ -1,25 +1,27 @@
 import React, { useState } from "react";
 import {
-  Alert,
-  StyleSheet,
+  View,
   Text,
   TextInput,
   TouchableOpacity,
-  View,
+  Alert,
+  StyleSheet,
+  Button,
+  
 } from "react-native";
 import api from "../axios/axios";
 
-export default function CadastroEvento({ navigation }) {
+export default function CadastroEventoScreen({navigation}) {
   const [evento, setEvento] = useState({
-    nome: "",
-    descricao: "",
-    data_hora: "",
-    local: "",
-    fk_id_evento: "",
+     nome:"",
+     descricao:"",
+     data_hora:"",
+     local:"",
+     fk_id_evento: "",
   });
 
-  async function handleEvento() {
-    await api.postEvento(evento).then(
+  async function CadastroEventoScreen() {
+    await api.postCadastroEvento(evento).then(
       (response) => {
         console.log(response.data.message);
         Alert.alert("OK", response.data.message);
@@ -32,7 +34,7 @@ export default function CadastroEvento({ navigation }) {
   }
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Faça Cadastro de um Evento</Text>
+      <Text style={styles.title}>Faça o Cadastro do Evento</Text>
       <TextInput
         placeholder="Nome"
         value={evento.nome}
@@ -42,22 +44,22 @@ export default function CadastroEvento({ navigation }) {
         style={styles.input}
       />
       <TextInput
-        placeholder="Descrição"
+        placeholder="Descriçao"
         value={evento.descricao}
         onChangeText={(value) => {
           setEvento({ ...evento, descricao: value });
         }}
         style={styles.input}
       />
-      <TextInput
-        placeholder="Data e Hora"
+       <TextInput
+        placeholder="Data e Hora  "
         value={evento.data_hora}
         onChangeText={(value) => {
           setEvento({ ...evento, data_hora: value });
         }}
         style={styles.input}
       />
-      <TextInput
+       <TextInput
         placeholder="Local"
         value={evento.local}
         onChangeText={(value) => {
@@ -65,7 +67,7 @@ export default function CadastroEvento({ navigation }) {
         }}
         style={styles.input}
       />
-      <TextInput
+       <TextInput
         placeholder="ID do Organizador"
         value={evento.fk_id_organizador}
         onChangeText={(value) => {
@@ -73,7 +75,7 @@ export default function CadastroEvento({ navigation }) {
         }}
         style={styles.input}
       />
-      <TouchableOpacity onPress={handleEvento} style={styles.button}>
+        <TouchableOpacity onPress={CadastroEventoScreen} style={styles.button}>
         <Text style={styles.button}>Cadastrar</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button}>
@@ -81,6 +83,8 @@ export default function CadastroEvento({ navigation }) {
           Home
         </Text>
       </TouchableOpacity>
+
+    
     </View>
   );
 }
@@ -99,13 +103,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 20,
     paddingHorizontal: 10,
-    borderColor: "gray",
   },
   button: {
-    backgroundColor: "green",
-    color: "white",
+    backgroundColor: "gray",
+    padding: 10,
     borderRadius: 5,
-    margin: 10,
+    alignItems: "center",
+    width: "100%",
+    width: 100,
   },
   title: {
     fontSize: 25,

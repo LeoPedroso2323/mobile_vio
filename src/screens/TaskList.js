@@ -1,12 +1,17 @@
-import React, { useState } from "react";
-import { FlatList } from "react-native";
-import { View, Text, TouchableOpacity, StyleSheet, Button } from "react-native";
+import React from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  StyleSheet,
+} from "react-native";
 
 export default function TaskList({ navigation }) {
   const tasks = [
     {
       id: 1,
-      title: "Comprar leite",
+      title: "Comprar Leite",
       date: "2025-04-27",
       time: "10:00",
       address: "Supermercado Noemia",
@@ -14,7 +19,7 @@ export default function TaskList({ navigation }) {
     {
       id: 2,
       title: "Enviar e-mail",
-      date: "2024-06-20",
+      date: "2025-06-20",
       time: "14:45",
       address: "Trabalho",
     },
@@ -28,37 +33,40 @@ export default function TaskList({ navigation }) {
   ];
 
   const handleTaskPress = (task) => {
-    navigation.navigate("TaskDetail", {task});
-  };
+    navigation.navigate("TaskDetail",{ task });
+  }
 
-  return (
+  return(
     <View style={styles.container}>
-      <FlatList
+        <FlatList
         data={tasks}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            style={styles.itemCard}
-            onPress={() => handleTaskPress(item)}
-          >
-            <Text>{item.title}</Text>
-          </TouchableOpacity>
+        keyExtractor={(item) => item.id.toString}
+        renderItem={({item}) => (
+            <TouchableOpacity style={styles.intemCard}
+            onPress={()=> handleTaskPress(item)}>
+                <Text>{item.title}</Text>
+            </TouchableOpacity>
         )}
-      />
+        
+        
+        />
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    paddingTop: 50,
-  },
-  itemCard: {
-    padding: 15,
+
+    container:{
+        flex:1,
+        padding:20,
+        paddingTop:50,
+
+    },
+    intemCard:{
+    padding:15,
     backgroundColor: "green",
-    marginBott0om: 10,
+    marginBottom: 10,
     borderRadius: 8,
-  },
-});
+    }
+
+})
