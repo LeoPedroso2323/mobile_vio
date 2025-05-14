@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import api from "../services/axios";
+import api from "../axios/axios";
+import CustomDateTimePicker from "../components/DateTimePicker";  // Alterado para CustomDateTimePicker
 
 export default function CadastroEvento({ navigation }) {
   const [evento, setEvento] = useState({
@@ -30,56 +31,52 @@ export default function CadastroEvento({ navigation }) {
       }
     );
   }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Faça Cadastro de um Evento</Text>
-      <TextInput
-        placeholder="Nome"
-        value={evento.nome}
-        onChangeText={(value) => {
-          setEvento({ ...evento, nome: value });
-        }}
-        style={styles.input}
+      
+      {/* Usando o componente renomeado */}
+      <CustomDateTimePicker
+        type={"date"}
+        buttonTitle={
+          evento.data_hora === "" 
+            ? "Selecione a data do Evento" 
+            : evento.data_hora.toLocaleString()
+        }
+        setValue={setEvento}
+        dateKey={"data_hora"}
       />
+      
       <TextInput
         placeholder="Descrição"
         value={evento.descricao}
-        onChangeText={(value) => {
-          setEvento({ ...evento, descricao: value });
-        }}
+        onChangeText={(value) => setEvento({ ...evento, descricao: value })}
         style={styles.input}
       />
-      <TextInput
-        placeholder="Data e Hora"
-        value={evento.data_hora}
-        onChangeText={(value) => {
-          setEvento({ ...evento, data_hora: value });
-        }}
-        style={styles.input}
-      />
+      
       <TextInput
         placeholder="Local"
         value={evento.local}
-        onChangeText={(value) => {
-          setEvento({ ...evento, local: value });
-        }}
+        onChangeText={(value) => setEvento({ ...evento, local: value })}
         style={styles.input}
       />
+      
       <TextInput
         placeholder="ID do Organizador"
         value={evento.fk_id_organizador}
-        onChangeText={(value) => {
-          setEvento({ ...evento, fk_id_organizador: value });
-        }}
+        onChangeText={(value) => setEvento({ ...evento, fk_id_organizador: value })}
         style={styles.input}
       />
+      
+      {/* Botão Cadastrar */}
       <TouchableOpacity onPress={handleEvento} style={styles.button}>
-        <Text style={styles.button}>Cadastrar</Text>
+        <Text style={styles.buttonText}>Cadastrar</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.button} onPress={() => navigation.navigate("Home")}>
-          Home
-        </Text>
+
+      {/* Botão Home */}
+      <TouchableOpacity onPress={() => navigation.navigate("Home")} style={styles.button}>
+        <Text style={styles.buttonText}>Home</Text>
       </TouchableOpacity>
     </View>
   );
@@ -103,9 +100,16 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "black",
-    color: "white",
     borderRadius: 5,
     margin: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "center",
   },
   title: {
     fontSize: 25,

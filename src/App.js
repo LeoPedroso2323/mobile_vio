@@ -37,7 +37,7 @@ export default function App() {
         />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="GetEventos" component={EventosScreen} />
-        <Stack.Screen name="CadastroEvento" component={CadastroEventoScreen} />
+        <Stack.Screen name="CadastroEventoScreen" component={CadastroEventoScreen} />
         <Stack.Screen
           name="CadastroOrganizador"
           component={CadastroOrganizadorScreen}

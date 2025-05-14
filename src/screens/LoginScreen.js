@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import api from "../services/axios";
+import api from "../axios/axios";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import * as SecureStore from "expo-secure-store";
@@ -32,7 +32,7 @@ export default function Login() {
         console.log(response.data.message);
         Alert.alert("OK", response.data.message);
         saveToken(response.data.token);
-        navigation.navigate("Home");
+        navigation.navigate("GetEventos");
       },
       (error) => {
         Alert.alert("Erro", error.response.data.error);

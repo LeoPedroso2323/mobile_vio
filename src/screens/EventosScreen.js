@@ -9,6 +9,7 @@ import {
   Modal,
   ActivityIndicator,
 } from "react-native";
+import * as SecureStore from 'expo-secure-store';
 
 export default function Eventos({ navigation }) {
   const [eventos, setEventos] = useState([]);
@@ -22,6 +23,7 @@ export default function Eventos({ navigation }) {
   },[]);
 
   async function getEventos() {
+    
     try {
       const response = await api.getEventos();
       console.log(response.data);
@@ -45,6 +47,9 @@ export default function Eventos({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity onPress={ ()=>{navigation.navigate("CadastroEventoScreen")}}>
+        <Text>Criar novo evento</Text>
+      </TouchableOpacity>
       <Text style={styles.title}>Eventos Disponíveis</Text>
       {loading ? (
         <ActivityIndicator size="large" color="#0000ff" />
